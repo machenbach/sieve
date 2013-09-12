@@ -5,11 +5,19 @@ import java.io.PrintWriter;
 import java.util.BitSet;
 import java.util.Iterator;
 
+/**
+ * Sieve of Eratosthenes as an iterator, using a bitset
+ * @author machenbach
+ *
+ */
 public class Sieve implements Iterable<Integer>, Iterator<Integer>{
 	BitSet sv;
 	int n;
+	// ndx is the next prime we're working on
 	int ndx = 2;
 	
+	// start at our current prime, and look until we find an unmarked space.  If there is one < n, 
+	// hasNext is true
 	@Override
 	public boolean hasNext() {
 		for (int k = ndx; k < n; k++) {
@@ -48,18 +56,22 @@ public class Sieve implements Iterable<Integer>, Iterator<Integer>{
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
+		// how far to go
 		int n = 10000000;
+		
+		// calculate how wide the largest number can be
 		double logn = Math.log10(n);
 		double t = Math.ceil(logn);
 		int width =  (int)Math.ceil(Math.log10(n));
+		// create a format string that will format to the width (plus a space)
 		String fmtString = String.format("%%%dd ", width);
 		System.out.println("Spaces = " + Math.ceil(Math.log10(n)));
 		try {
 			PrintWriter p = new PrintWriter("primes.txt");
 			Sieve s = new Sieve(n);
 			
+			// max out at 80 columns before new line
 			int reset = 80 / (width + 1);
 			int cnt = 0;
 			long lineCount = 0;
