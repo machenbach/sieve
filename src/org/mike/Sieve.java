@@ -59,6 +59,14 @@ public class Sieve implements Iterable<Integer>, Iterator<Integer>{
 		
 		// how far to go
 		int n = 10000000;
+		if (args.length > 0) {
+			try {
+				n = Integer.parseInt(args[0]);
+			} 
+			catch (NumberFormatException e) {
+				// don't do anything
+			}
+		}
 		
 		// calculate how wide the largest number can be
 		double logn = Math.log10(n);
